@@ -1,0 +1,137 @@
+<div @sideState>
+  <div class="row p-3">
+    <h2 class="col-2 fw-bolder">PRODUCTOS</h2>
+    <div class="col-2">
+        <select class="form-select" [(ngModel)]="orderBy">
+            <option value="null">Ordenar por</option>
+            <option value="nombre">Nombre</option>
+            <option value="precio">Precio Lista</option>
+            <option value="sku">SKU</option>
+        </select>
+    </div>
+    <div class="col-2">
+      <select class="form-select" [(ngModel)]="categoriaSeleccionada">
+          <option value="null">Filtrar categoria</option>
+          <option *ngFor="let categoria of categorias" [value]="categoria.id_categoria">{{categoria.nombre}}</option>
+      </select>
+    </div>
+    <div class="col-2">
+        <select class="form-select" [(ngModel)]="bodegaSeleccionada">
+            <option value="null">Filtrar bodega</option>
+            <option *ngFor="let bodega of bodegas" [value]="bodega.id_bodega">{{bodega.calle}}, {{bodega.comuna}}</option>
+        </select>
+    </div>
+    <div class="col-2">
+        <div class="input-group flex-nowrap">
+            <span class="input-group-text" id="addon-wrapping"><i class="fa fa-search" aria-hidden="true"></i></span>
+            <input class="form-control" [(ngModel)]="busqueda">
+        </div>
+    </div>
+    <div class="col-2">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" [(ngModel)]="mostrarSinStock">
+        <label class="form-check-label fw-bold" for="flexSwitchCheckDefault">Ver productos sin stock</label>
+      </div>
+  </div>
+  </div>
+
+  <hr />
+
+  <div *ngIf="productos.length > 0" class="cardsContainer">
+    <div
+      *ngFor="let producto of productos | filter: busqueda | filterByCategoria: categoriaSeleccionada | filterByBodega: bodegaSeleccionada | filterBySKU: orderBy; index as i">
+      <div *ngIf="mostrarSinStock || producto.unidades > 0" class="my-2 py-2 col-10" [ngClass]="{'usuarioCard': (producto.unidades > 0), 'usuarioCard-sinStock': (producto.unidades == 0)}">
+        <div class="row d-flex mx-auto">
+          <div class="col-2 mt-3">
+              <div class="d-flex flex-column justify-content-start">
+                  <p class="fw-bolder mb-1">SKU</p>
+                  <p class="mb-1">{{ producto.sku }}</p>
+              </div>
+          </div>
+          <div class="col-4 mt-3">
+            <div class="d-flex flex-column justify-content-start">
+              <p class="fw-bolder mb-1">Nombre</p>
+              <p class="mb-1">{{ producto.nombre }}</p>
+            </div>
+          </div>
+          <div class="col-1 mt-3">
+              <div class="d-flex flex-column justify-content-start">
+                <p class="fw-bolder mb-1">Categoria</p>
+                <p class="mb-1">{{ producto.categoria.nombre }}</p>
+              </div>
+            </div>
+          <div class="col-3 mt-3">
+              <div class="d-flex flex-column justify-content-start">
+                <p class="fw-bolder mb-1 text-center">Precio Costo / Precio Lista</p>
+                <p class="mb-1 text-center">${{ producto.precio_costo }}/${{ producto.precio_lista }}</p>
+              </div>
+          </div>
+          <div class="col-1 mt-3">
+            <div class="d-flex flex-column justify-content-start">
+              <p class="fw-bolder mb-1 text-center">Stock</p>
+              <div *ngIf="producto.unidades == 0">
+                <p class="fw-bold text-danger text-center">Sin stock</p>
+              </div>
+              <div *ngIf="producto.unidades > 0">
+                <p class="mb-1 text-center">{{ producto.unidades }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-1 mt-3">
+              <div class="d-flex flex-column justify-content-start">
+                <button class="btn btn-venta" [disabled]="producto.unidades == 0" (click)="showModal(producto)"><i class="fa fa-shopping-cart" aria-hidden="true"></i></button>
+              </div>
+            </div>
+          <div class="col-lg-2 d-inline-flex justify-content-end">
+          </div>
+        </div>
+      </div>
+      </div>
+
+  </div>
+</div>
+
+<div class="modal fade" id="modal-venta" tabindex="-1" role="dialog" aria-labelledby="modal-venta" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Realizar una venta</h5>
+          <button class="btn btn-danger btn-cerrar close" (click)="closeModal()" data-dismiss="modal-venta"
+            aria-label="Close">
+            <i class="fa-solid fa-xmark icon-cerrar"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div>
+            <div class="form-group">
+              <div>
+                <p class="fw-bolder">Realizar venta de {{productoVenta.nombre}}</p>
+              </div>
+              <label class="mt-3" for="categoria">
+                <span class="fw-bolder">Bodega</span>
+              </label>
+              <select class="form-control" name="categoria" [(ngModel)]="bodegaVentaId" (change)="getBodegaProducto()">
+                <option selected disabled hidden value="0">
+                  Seleccionar bodega
+                </option>
+                <option *ngFor="let bodega of productoVenta.bodegas" [value]="bodega.id_bodega">{{bodega.calle}}, {{bodega.comuna}}</option>
+              </select>
+            </div>
+          </div>
+          <div *ngIf="bodegaVenta != null">
+            <p>Stock disponible : {{bodegaVenta.stock}}</p>
+          </div>
+          <div class="form-group">
+            <label class="mt-3" for="precioLista">
+              <span class="fw-bolder">Ingrese cantidad a vender</span>
+            </label>
+            <input type="number" min="1" class="form-control" name="precioLista" placeholder="Precio"
+              [(ngModel)]="cantidadVenta"/>
+          </div>
+        </div>
+        <div class="modal-footer justify-content-center">
+          <button class="btn btn-agregar" (click)="realizarVenta()">Guardar</button>
+        </div>
+      </div>
+    </div>
+  </div>

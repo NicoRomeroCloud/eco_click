@@ -1,0 +1,141 @@
+<div @sideState>
+  <div class="row">
+    <h2 class="p-3 col-10 fw-bolder">USUARIOS</h2>
+    <button type="button" class="col-2 mt-3 btn btn-agregar" (click)="modalNewUsuario.show()">AGREGAR</button>
+  </div>
+
+  <hr>
+
+  <div *ngIf="usuarios.length > 0" class="cardsContainer">
+    <div *ngFor="let usuario of usuarios; index as i" class="usuarioCard my-2 py-2 col-6" >
+      <div class="row d-flex mx-auto">
+        <div class="col-2 d-inline-flex Ualign-items-center">
+          <img src="../../../assets/img/usuarioDefecto.png" alt="" class="imgRedonda align-middle">
+        </div>
+        <div class="col-3 mt-3">
+          <div class="d-flex flex-column justify-content-start">
+            <p class="fw-bolder mb-1">Usuario</p>
+            <p class="mb-1">{{usuario.nombre}}</p>
+          </div>
+        </div>
+
+        <div class="col-5 mt-3">
+          <div class="d-flex flex-column justify-content-start">
+            <p class="fw-bolder mb-1">Correo</p>
+            <p class="mb-1">{{usuario.email}}</p>
+          </div>
+        </div>
+        <div class="col-lg-2 d-inline-flex justify-content-end">
+          <div class="dropdown">
+            <a class="btn" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="fa-solid fa-ellipsis-vertical fa-lg icon-detail"></i>
+            </a>
+            <ul class="dropdown-menu listadoAcciones">
+              <li class="acciones">
+                <button class="btnEditar" (click)="editarUsuario(usuario)">
+                  <i class="fa-solid fa-pen-to-square iconAcciones"></i>
+                  Editar
+                </button>
+              </li>
+              <li class="acciones">
+                <button class="btnEliminar" (click)="showModalEliminar(usuario.id_usuario)">
+                  <!-- (click)="deleteRelatores(relator.id_relator)" -->
+                  <i class="fa-solid fa-trash iconAcciones"></i>
+                  Eliminar
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modal-nuevo-usuario" tabindex="-1" role="dialog" aria-labelledby="modal-nuevo-usuario" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Crear Usuario</h5>
+        <button class="btn btn-danger btn-cerrar close" (click)="closeModal(usuarioForm)" data-dismiss="modal-nuevo-usuario" aria-label="Close">
+          <i class="fa-solid fa-xmark icon-cerrar"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #usuarioForm="ngForm" (ngSubmit)="usuarioForm.form.valid && onSubmit(usuarioForm)" novalidate
+            class="bg-white needs-validation">
+
+            <div class="form-group">
+              <label class="mt-3" for="perfil">
+                <span class="fw-bolder">Perfil</span>
+              </label>
+              <select class="form-control" name="perfil" [(ngModel)]="usuarioNuevo.perfil.idPerfil"
+                #perfil="ngModel" [ngClass]="{'is-invalid': usuarioForm.submitted && perfil.value == 0}" required>
+                <option selected disabled hidden value="0"> Seleccionar perfil</option>
+                <option *ngFor="let perfil of perfiles" [value]="perfil.idPerfil">
+                  <div *ngIf="perfil.codigo == 'ADM'">
+                    Administrador
+                  </div>
+                  <div *ngIf="perfil.codigo == 'USR'">
+                    Usuario
+                  </div>
+                </option>
+              </select>
+              <div class="invalid-feedback">
+                <p class="fst-italic pSmall text-danger mb-0">*Categoría requerida</p>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="mt-3" for="nombre">
+                <span class="fw-bolder">Nombre</span>
+              </label>
+              <input type="text" class="form-control" name="nombre" placeholder="Nombre Apellido" [(ngModel)]="usuarioNuevo.nombre"
+                #nombre="ngModel" [ngClass]="{'is-invalid': usuarioForm.submitted && nombre.invalid}" required>
+              <div class="invalid-feedback">
+                <p class="fst-italic pSmall text-danger m-0">*Nombre requerido</p>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="mt-3" for="nombre">
+                <span class="fw-bolder">Correo Electrónico</span>
+              </label>
+              <input type="email" class="form-control" name="correo" placeholder="email@email.com" [(ngModel)]="usuarioNuevo.email"
+                #correo="ngModel" [ngClass]="{'is-invalid': usuarioForm.submitted && correo.invalid}" required>
+              <div class="invalid-feedback">
+                <p class="fst-italic pSmall text-danger m-0">*Correo requerido</p>
+              </div>
+            </div>
+
+            <div class="d-flex mt-3 justify-content-center">
+              <button type="submit" class="btn btn-primary">
+                GUARDAR
+              </button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modal-eliminar-usuario" tabindex="-1" role="dialog" aria-labelledby="modal-eliminar-usuario" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Eliminar Usuario</h5>
+        <button class="btn btn-danger btn-cerrar close" (click)="this.modalEliminarUsuario.hide()" data-dismiss="modal-eliminar-usuario" aria-label="Close">
+          <i class="fa-solid fa-xmark icon-cerrar"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        ¿Estás seguro de eliminar el usuario?
+        <div class="d-flex mt-3 justify-content-center">
+          <button type="submit" class="btn btn-danger" (click)="eliminarUsuario()">
+            ELIMINAR
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

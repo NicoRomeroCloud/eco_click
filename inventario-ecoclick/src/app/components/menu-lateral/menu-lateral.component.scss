@@ -1,0 +1,17 @@
+.activeIcon {
+  opacity: 1 !important;
+  background-color: #152351;
+  position: relative;
+}
+
+.activeIcon::before {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  border-top: 10px solid transparent;
+  border-left: 0;
+  border-right: 10px solid #fff;
+  border-bottom: 10px solid transparent;
+}

@@ -1,0 +1,22 @@
+.tittlePassword{
+    background-color: #233673;
+    color: white;
+}
+
+.imagenBackground{
+    background-position: center;
+    background-image: url(../../../../assets/img/LOGOTIPO_ECOCLICK.png);
+    width: 100vw;
+    background-size: 50%;
+    background-repeat: no-repeat;
+}
+
+.card{
+    background-color: #eeeeee80;
+    transition-duration: 0.5s;
+}
+
+.card:hover{
+    background-color: #0f4c81;
+    color: white;
+}

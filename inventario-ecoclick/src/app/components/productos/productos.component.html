@@ -1,0 +1,123 @@
+<div @sideState>
+  <div class="row">
+    <h2 class="p-3 col-10 fw-bolder">PRODUCTOS</h2>
+    <button type="button" class="col-2 mt-3 btn btn-agregar" (click)="modalNewProducto.show()">
+      AGREGAR
+    </button>
+  </div>
+  <hr />
+
+  <div class="tableContainer">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">SKU</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Categoria</th>
+          <th scope="col">Stock</th>
+          <th scope="col">Precio Costo</th>
+          <th scope="col">Precio Venta</th>
+          <th scope="col">Acción</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let producto of productos; index as i">
+          <th scope="row">{{ producto.sku }}</th>
+          <td>{{ producto.nombre }}</td>
+          <td>{{ producto.categoria.nombre }}</td>
+          <td>{{ producto.unidades }}</td>
+          <td>${{ producto.precio_costo }}</td>
+          <td>${{ producto.precio_lista }}</td>
+          <td>
+            <i class="fa fa-archive me-2 text-primary text-btn" aria-hidden="true"
+              (click)="editarStock(producto)"></i>
+            <i class="fa fa-pencil-square-o text-dark text-btn me-2" aria-hidden="true"
+              (click)="editarProductoModal(producto)"></i>
+            <i class="fa fa-trash-o text-danger text-btn" aria-hidden="true"
+              (click)="eliminarProductoModal(producto.id_producto)"></i>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="modal fade" id="modal-nuevo-producto" tabindex="-1" role="dialog" aria-labelledby="modal-nuevo-producto"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Crear producto</h5>
+        <button class="btn btn-danger btn-cerrar close" (click)="closeModal()" data-dismiss="modal-nuevo-producto"
+          aria-label="Close">
+          <i class="fa-solid fa-xmark icon-cerrar"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-producto-nuevo (productoSave)="saveProducto($event)"></app-producto-nuevo>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modal-eliminar-producto" tabindex="-1" role="dialog"
+  aria-labelledby="modal-eliminar-producto" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Eliminar Producto</h5>
+        <button class="btn btn-danger btn-cerrar close" (click)="modalConfirmarEliminar.hide()"
+          data-dismiss="modal-eliminar-producto" aria-label="Close">
+          <i class="fa-solid fa-xmark icon-cerrar"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p class="py-3">¿Estas seguro de eliminar este producto?</p>
+        <div class="d-flex justify-content-center">
+          <button class="btn btn-primary" (click)="eliminarProducto()">
+            Eliminar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modal-stock" tabindex="-1" role="dialog" aria-labelledby="modal-stock" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Editar stock</h5>
+        <button class="btn btn-danger btn-cerrar close" (click)="closeModalStock()" data-dismiss="modal-stock"
+          aria-label="Close">
+          <i class="fa-solid fa-xmark icon-cerrar"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div>
+          <div class="form-group">
+            <label class="mt-3" for="categoria">
+              <span class="fw-bolder">Bodega</span>
+            </label>
+            <select class="form-control" name="categoria" [(ngModel)]="bodegaProductoNew.id.bodegaId" (change)="filtrarBodegaStock()">
+              <option selected disabled hidden value="0">
+                Seleccionar bodega
+              </option>
+              <option *ngFor="let bodega of bodegas" [value]="bodega.id_bodega">{{bodega.calle}}, {{bodega.comuna}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="mt-3" for="precioLista">
+            <span class="fw-bolder">Stock</span>
+          </label>
+          <input type="number" min="1" class="form-control" name="precioLista" placeholder="Precio"
+            [(ngModel)]="bodegaProductoNew.stock"/>
+        </div>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button class="btn btn-agregar" (click)="guardarStock()">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>

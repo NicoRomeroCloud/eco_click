@@ -1,0 +1,38 @@
+/* You can add global styles to this file, and also import other style files */
+@import 'ngx-toastr/toastr';
+.text-btn{
+    cursor: pointer;
+    opacity: 0.6;
+}
+
+.text-btn:hover{
+    opacity: 1;
+}
+
+.btn-agregar{
+    width: 7vw;
+    height: 6vh;
+    transition-duration: 0.5s;
+    background-color: #0f4c81;
+    color: white;
+    border: 1px solid white;
+    &-large {
+        width: 10vw;
+        transition-duration: 0.5s;
+        background-color: #0f4c81;
+        color: white;
+        border: 1px solid white;
+    }
+}
+
+.btn-agregar:hover{
+    background-color: white;
+    color: #0f4c81;
+    border: 1px solid #0f4c81;
+}
+
+.btn-agregar-large:hover{
+    background-color: white;
+    color: #0f4c81;
+    border: 1px solid #0f4c81;
+}

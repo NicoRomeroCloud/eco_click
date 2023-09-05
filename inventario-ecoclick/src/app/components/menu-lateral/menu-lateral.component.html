@@ -1,0 +1,95 @@
+<div>
+  <div class="px-3">
+    <img src="" alt="">
+  </div>
+  <div>
+    <div class="d-flex flex-column pb-3 ps-3" style="color: aliceblue">
+      <h5>{{usuario.nombre}}</h5>
+      <span *ngIf="perfil === 'ADM'">Administrador</span>
+      <span *ngIf="perfil === 'USR'">Usuario</span>
+    </div>
+    <hr class="mt-1" style="color: aliceblue">
+  </div>
+  <div class="pt-3">
+    <ul class="nav flex-column mb-auto">
+      <li (click)="setMenu('/home')">
+        <a [ngClass]="{'activeIcon' : menuSelected == '/home'}" (click)="cambiarRuta('/home')" 
+            class="nav-link text-btn" aria-current="page" style="color: aliceblue;">
+          <i class="me-1 fa-solid fa-house"></i>
+          Home
+        </a>
+      </li>
+      <li class="nav-item" (click)="setMenu('/productos')" *ngIf="perfil != 'USR'">
+        <a [ngClass]="{'activeIcon' : menuSelected == '/productos'}" (click)="cambiarRuta('/productos')" 
+            class="nav-link text-btn" aria-current="page" style="color: aliceblue; cursor: pointer;">
+          <i class="me-1 fa-solid fa-database"></i>
+          Productos
+        </a>
+      </li>
+      <li class="nav-item" (click)="setMenu('/productos')" *ngIf="perfil == 'USR'">
+        <a [ngClass]="{'activeIcon' : menuSelected == '/productos'}" (click)="cambiarRuta('/venta')" 
+            class="nav-link text-btn" aria-current="page" style="color: aliceblue; cursor: pointer;">
+          <i class="me-1 fa-solid fa-database"></i>
+          Productos
+        </a>
+      </li>
+      <li class="nav-item" (click)="setMenu('categoria')" *ngIf="perfil != 'USR'">
+        <a [ngClass]="{'activeIcon' : menuSelected == 'categoria'}" (click)="cambiarRuta('/categoria')" 
+            class="nav-link text-btn" aria-current="page" style="color: aliceblue; cursor: pointer;">
+          <i class="me-1 fa-solid fa-database"></i>
+          Categorías
+        </a>
+      </li>
+      <li class="nav-item" (click)="setMenu('bodegas')" *ngIf="perfil != 'USR'">
+        <a [ngClass]="{'activeIcon' : menuSelected == '/bodegas'}" (click)="cambiarRuta('/bodega/listar')"
+            class="nav-link text-btn" aria-current="page" style="color: aliceblue; cursor: pointer;">
+          <i class="me-1 fa-solid fa-database"></i>
+          Bodegas
+        </a>
+      </li>
+      <hr class="mb-1" style="color: aliceblue">
+      <li class="nav-item"  (click)="setMenu('/usuarios')" *ngIf="perfil != 'USR'">
+        <a [ngClass]="{'activeIcon' : menuSelected == '/usuarios'}" (click)="cambiarRuta('/usuarios')" 
+            class="nav-link text-btn" aria-current="page" style="color: aliceblue">
+          <i class="me-1 fa-solid fa-users"></i>
+          Usuarios
+        </a>
+      </li>
+      <li class="nav-item" (click)="setMenu('/configuracion')">
+        <a [ngClass]="{'activeIcon' : menuSelected == '/configuracion'}" (click)="cambiarRuta('/configuracion')"
+            class="nav-link text-btn" aria-current="page" style="color: aliceblue">
+          <i class="me-1 fa-solid fa-gear"></i>
+          Configuración
+        </a>
+      </li>
+      <li class="nav-item" (click)="cerrarSesion()" style="cursor: pointer;">
+        <a class="nav-link text-btn fw-bold" aria-current="page" style="color: rgb(255, 0, 51)">
+          <i class="me-1 fa-solid fa-right-from-bracket"></i>
+          Cerrar sesión
+        </a>
+      </li>
+      <hr class="mt-1" style="color: aliceblue">
+    </ul>
+  </div>
+  <!--    MODAL CONFIRMACION    -->
+  <div class="modal fade" id="modal-cerrar-sesion" tabindex="-1" role="dialog" aria-labelledby="modal-cerrar-sesion"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Confirmación</h5>
+          <button class="btn btn-primary btn-cerrar close" (click)="closeModalConfirmar()"
+            data-dismiss="modal-cerrar-sesion" aria-label="Close">
+            <i class="fa-solid fa-xmark icon-cerrar"></i>
+          </button>
+        </div>
+        <div class="modal-body align-items-center">
+          <p>¿Estás seguro de querer cerrar sesión?</p>
+          <div class="modal-footer">
+            <button type="button" (click)="limpiarSesion()" class="btn btn-primary">Cerrar Sesión</button>
+            <button type="button" class="btn btn-danger" (click)="closeModalConfirmar()">Cancelar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

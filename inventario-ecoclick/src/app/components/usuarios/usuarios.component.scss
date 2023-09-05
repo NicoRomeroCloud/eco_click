@@ -1,0 +1,122 @@
+$brandColor: #0058C7;
+$hoverBrandColor: #2D14B6;
+$eliminarColor: #EF4444;
+$hoverEliminarColor: #DC2626;
+$editarColor: #F59E0B;
+$hoverEditarColor: #D97706;
+
+
+.usuarioCard {
+    margin-top: auto;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 0 4px 6px rgba(44, 20, 182, 0.16);
+
+    .imgRedonda {
+        width: 80px;
+        height: 80px;
+        //border-radius:100px;
+        clip-path: circle(50% at 50% 50%);
+        line-height: 100%;
+        //border: solid gray 2px;
+        object-fit: cover;
+
+        &-medium {
+            @extend .imgRedonda;
+            width: 40px !important;
+            height: 40px !important;
+        }
+
+        &-small {
+            @extend .imgRedonda;
+            width: 20px !important;
+            height: 20px !important;
+        }
+    }
+
+    .imgRedondaXL {
+        width: 120px;
+        height: 120px;
+        border-radius: 100px;
+        line-height: 100%;
+        border: solid gray 2px;
+        object-fit: cover;
+    }
+}
+
+.cardsContainer {
+    height: 70vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+        width: 7px;
+        margin-left: 10px;
+    }
+
+    &::-webkit-scrollbar-track {
+        border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: $brandColor;
+        border-radius: 10px;
+    }
+
+    &-form {
+        @extend .cardsContainer;
+        height: 60vh !important;
+    }
+}
+
+.listadoAcciones {
+    align-items: flex-start;
+    text-align: start;
+    text-decoration: none;
+    list-style: none;
+    padding: 10px;
+    margin-bottom: 0;
+
+    .acciones {
+        padding: 6px;
+
+        .iconAcciones {
+            margin-right: 3px;
+            padding-right: 4px;
+        }
+    }
+}
+
+.btnEditar {
+    background-color: white;
+    border: 0;
+    text-decoration: 0;
+    color: $editarColor;
+    font-size: 16px;
+    font-weight: 600;
+
+    &:hover {
+        color: $hoverEditarColor
+    }
+}
+
+.btnEliminar {
+    background-color: white;
+    border: 0;
+    text-decoration: 0;
+    color: $eliminarColor;
+    font-size: 16px;
+    font-weight: 600;
+
+    &:hover {
+        color: $hoverEliminarColor
+    }
+}
+
+.icon-detail {
+    color: ($brandColor);
+
+    &:hover {
+        color: ($hoverBrandColor);
+    }
+}

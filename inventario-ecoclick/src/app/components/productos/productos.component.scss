@@ -1,0 +1,33 @@
+$brandColor: #0058C7;
+
+thead tr th { 
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background-color: #233673;
+    color: white;
+}
+
+table{
+    border: 1px solid black !important;
+}
+
+.tableContainer {
+    height: 80vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+        width: 7px;
+        margin-left: 10px;
+    }
+
+    &::-webkit-scrollbar-track {
+        border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: $brandColor;
+        border-radius: 10px;
+    }
+}

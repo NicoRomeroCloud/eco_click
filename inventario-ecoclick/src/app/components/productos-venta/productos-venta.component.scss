@@ -1,0 +1,120 @@
+$brandColor: #0058C7;
+$hoverBrandColor: #2D14B6;
+$eliminarColor: #EF4444;
+$hoverEliminarColor: #DC2626;
+$editarColor: #F59E0B;
+$hoverEditarColor: #D97706;
+
+
+.usuarioCard {
+    margin-top: auto;
+    margin-left: 10%;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 0 4px 6px rgba(44, 20, 182, 0.16);
+    transition: 0.5s ease;
+
+    &-sinStock {
+        margin-top: auto;
+        margin-left: 10%;
+        border-radius: 10px;
+        background-color: rgb(200, 200, 200);
+        box-shadow: 0 4px 6px rgba(44, 20, 182, 0.16);
+    }
+
+    &:hover{
+        background-color: #0f4c81;
+        color: white;
+        border: 1px solid white;
+        transform: scale(1.1);
+    }
+}
+
+.cardsContainer {
+    height: 70vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+    width: 90%;
+
+    &::-webkit-scrollbar {
+        width: 7px;
+        margin-left: 10px;
+    }
+
+    &::-webkit-scrollbar-track {
+        border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: $brandColor;
+        border-radius: 10px;
+    }
+
+    &-form {
+        @extend .cardsContainer;
+        height: 60vh !important;
+    }
+}
+
+.listadoAcciones {
+    align-items: flex-start;
+    text-align: start;
+    text-decoration: none;
+    list-style: none;
+    padding: 10px;
+    margin-bottom: 0;
+
+    .acciones {
+        padding: 6px;
+
+        .iconAcciones {
+            margin-right: 3px;
+            padding-right: 4px;
+        }
+    }
+}
+
+.btnEditar {
+    background-color: white;
+    border: 0;
+    text-decoration: 0;
+    color: $editarColor;
+    font-size: 16px;
+    font-weight: 600;
+
+    &:hover {
+        color: $hoverEditarColor
+    }
+}
+
+.btnEliminar {
+    background-color: white;
+    border: 0;
+    text-decoration: 0;
+    color: $eliminarColor;
+    font-size: 16px;
+    font-weight: 600;
+
+    &:hover {
+        color: $hoverEliminarColor
+    }
+}
+
+.icon-detail {
+    color: ($brandColor);
+
+    &:hover {
+        color: ($hoverBrandColor);
+    }
+}
+
+.btn-venta{
+    background-color: white;
+    color: #0f4c81;
+    border: 1px solid #0f4c81;
+    &:hover {
+        background-color: #0f4c81;
+        color: white;
+        border: 1px solid white;
+    }
+}

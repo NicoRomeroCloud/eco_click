@@ -1,0 +1,16 @@
+.imagenBackground{
+    background-position: center;
+    background-image: url(../../../assets/img/backgroundLogin.jpg);
+    height: 100vh;
+    width: 100vw;
+    background-size: cover;
+}
+
+.card{
+    background-color: #eeeeee80;
+    transition-duration: 0.5s;
+}
+
+.card:hover{
+    background-color: #eeeeeef8;
+}

@@ -1,0 +1,77 @@
+<div class="container d-flex justify-content-center">
+  <div class="d-flex justify-content-center imagenBackground">
+    <div class="d-flex flex-column justify-content-center">
+      <div class="card">
+        <div class="card-body p-5 shadow-lg">
+          <div class="d-flex justify-content-center">
+            <img src="../../../assets/img/LOGOTIPO_ECOCLICK.png" width="350vw" alt="">
+          </div>
+          <div class="px-3">
+            <div class="d-flex justify-content-center">
+              <h2>Inventario EcoClick</h2>
+            </div>
+            <div class="px-3">
+              <div>
+                <p class="mb-1 mt-3 fw-bold">Usuario</p>
+                <input class="form-control" type="text" placeholder="Escribe tu usuario" name="loginUsuario"
+                  [(ngModel)]="username" #textInput (keypress)="savePerfil()" (keydown)="onKeyPress($event)">
+                <p class="mb-1 mt-3 fw-bold">Contraseña</p>
+                <div class="input-group mb-3">
+                  <input class="form-control" [type]="pass ? 'password' : 'text'" placeholder="Escribe tu contaseña"
+                    name="loginContrasena" [(ngModel)]="password" #textInput (keydown)="onKeyPress($event)">
+                  <div class="input-group-append">
+                    <span (click)="pass=!pass" class="input-group-text h-100" id="basic-addon2">
+                      <i class="fa-solid" [ngClass]="{'fa-eye':pass,'fa-eye-slash':!pass}"></i>
+                    </span>
+                  </div>
+                </div>
+    
+              </div>
+              <div class="d-flex justify-content-center blockInfo mb-4">
+                <button class="btn btn-primary text-center flex-fill depth-3" (click)="checkLogin()"> INGRESAR</button>
+              </div>
+              <div class="d-flex justify-content-center pt-3">
+                <a class="text-btn" (click)="showModal()">Recuperar contraseña</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modal-recover-password" tabindex="-1" role="dialog" aria-labelledby="modal-recover-password" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Recuperar contraseña</h5>
+        <button class="btn btn-danger btn-cerrar close" (click)="closeModal()" data-dismiss="modal-recover-password" aria-label="Close">
+          <i class="fa-solid fa-xmark icon-cerrar"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #passwordForm="ngForm" (ngSubmit)="passwordForm.form.valid && onSubmit(passwordForm)" novalidate
+            class="bg-white needs-validation">
+
+            <div class="form-group">
+              <label class="mt-3" for="correo">
+                <span class="fw-bolder">Correo Electrónico</span>
+              </label>
+              <input type="email" class="form-control" name="correo" placeholder="email@email.com" [(ngModel)]="emailRecuperacion"
+                #correo="ngModel" [ngClass]="{'is-invalid': passwordForm.submitted && correo.invalid}" required email>
+              <div class="invalid-feedback">
+                <p class="fst-italic pSmall text-danger m-0">*Correo invalido</p>
+              </div>
+            </div>
+
+            <div class="d-flex mt-3 justify-content-center">
+              <button type="submit" class="btn btn-primary">
+                ENVIAR
+              </button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

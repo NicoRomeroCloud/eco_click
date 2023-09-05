@@ -1,0 +1,65 @@
+<div>
+  <div class="tittlePassword">
+    <h2 class="p-3">Restablecer contraseña</h2>
+  </div>
+
+  <div class="container d-flex justify-content-center mt-5">
+    <div class="d-flex justify-content-center">
+      <div class="d-flex flex-column justify-content-center">
+        <div class="card">
+          <div class="card-body p-5 shadow-lg">
+            <div class="px-3">
+              <div class="d-flex justify-content-center">
+                <h2>Ingresar Datos</h2>
+              </div>
+              <div class="px-3">
+                <div>
+                  <p class="mb-1 mt-3 fw-bold">Correo Electrónico</p>
+                  <input class="form-control" type="text" placeholder="correo@correo.com" name="loginUsuario"
+                    [(ngModel)]="usuario.email" #textInput>
+
+                  <p class="mb-1 mt-3 fw-bold">Contraseña</p>
+                  <div class="input-group mb-3">
+                    <input class="form-control" [type]="pass ? 'password' : 'text'" placeholder="Escribe tu contaseña"
+                      name="loginContrasena" [(ngModel)]="usuario.password" #textInput>
+                    <div class="input-group-append">
+                      <span (click)="pass=!pass" class="input-group-text h-100" id="basic-addon2">
+                        <i class="fa-solid" [ngClass]="{'fa-eye':pass,'fa-eye-slash':!pass}"></i>
+                      </span>
+                    </div>
+                  </div>
+
+                  <p class="mb-1 mt-3 fw-bold">Nueva Contraseña</p>
+                  <div class="input-group mb-3">
+                    <input class="form-control" [type]="pass ? 'password' : 'text'" placeholder="Escribe tu contaseña"
+                      name="loginContrasena" [(ngModel)]="newPassword" #textInput>
+                    <div class="input-group-append">
+                      <span (click)="pass=!pass" class="input-group-text h-100" id="basic-addon2">
+                        <i class="fa-solid" [ngClass]="{'fa-eye':pass,'fa-eye-slash':!pass}"></i>
+                      </span>
+                    </div>
+                  </div>
+
+                  <p class="mb-1 mt-3 fw-bold">Confirmar Nueva Contraseña</p>
+                  <div class="input-group mb-3">
+                    <input class="form-control" [type]="pass ? 'password' : 'text'" placeholder="Escribe tu contaseña"
+                      name="loginContrasena" [(ngModel)]="confirmNewPassword" #textInput>
+                    <div class="input-group-append">
+                      <span (click)="pass=!pass" class="input-group-text h-100" id="basic-addon2">
+                        <i class="fa-solid" [ngClass]="{'fa-eye':pass,'fa-eye-slash':!pass}"></i>
+                      </span>
+                    </div>
+                  </div>
+      
+                </div>
+                <div class="d-flex justify-content-center blockInfo mb-4">
+                  <button class="btn btn-primary text-center flex-fill depth-3" (click)="onSubmit()">CAMBIAR CONTRASEÑA</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

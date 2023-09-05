@@ -1,0 +1,153 @@
+<div @sidestate>
+
+    <div class="row">
+        <h2 class="p-3 col-10 fw-bolder">CATEGORÍAS</h2>
+        <button type="button" class="col-2 btn btn-agregar" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            AGREGAR
+        </button>
+
+    </div>
+
+    <hr>
+
+    <!-- Button trigger modal -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar categorías</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <form >
+
+                    <div class="form-group row">
+                         <label for="name" class="mt-3"> <span class="fw-bolder">Nombre</span>
+                        </label>
+                        <div class="col-sm-12">
+                            <input type="text" class="form-control" [(ngModel)]="categoria.nombre"
+                                name="name" placeholder="Ingresa el nombre de la cateogría" required><!-- required  -->
+                               
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="description" class="mt-3">
+                            <span class="fw-bolder">Descripcion</span>
+
+                        </label>
+                        <div class="col-sm-12">
+                            <input type="text" class="form-control" [(ngModel)]="categoria.descripcion"
+                                name="description" placeholder="Ingresa la descripción" required><!-- required category -->
+
+                        </div>
+                    </div>
+
+
+
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" role="button" (click)="createCategory()" *ngIf="editar">Editar categoría</button>
+                <button type="button" class="btn btn-primary" role="button" (click)="createCategory()" *ngIf="!editar">Crear categoría</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="tableContainer">
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">id categoría</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Descripción</th>
+                <th scope="col">Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let categorias of category, index as i">
+                <th scope="row">{{i+1}}</th>
+                <td>{{categorias.nombre}}</td>
+                <td>{{categorias.descripcion}}</td>
+                <td>
+                    
+    
+                    <!-- Button trigger modal -->
+    <button data-bs-toggle="modal" data-bs-target="#exampleModal" style="border: none;" (click)="actualizarProducto(categorias)">
+        <i class="fa fa-pencil-square-o text-dark text-btn me-2" aria-hidden="true">
+    
+        </i>
+    </button>
+    
+    <!-- Modal -->
+    <!-- <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar categorías</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+    
+                    <form>
+    
+                        <div class="form-group row">
+                            <label for="name" class="mt-3"> <span class="fw-bolder">Nombre</span>
+                            </label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" [(ngModel)]="categoria.nombre"
+                                    name="name">required  -->
+    
+                            <!-- </div>
+                        </div>
+    
+                        <div class="form-group row">
+                            <label for="description" class="mt-3">
+                                <span class="fw-bolder">Descripcion</span>
+    
+                            </label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" [(ngModel)]="categoria.descripcion"
+                                    name="description"> -->
+    
+                            <!-- </div>
+                        </div>
+    
+    
+    
+                    </form>
+    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" role="button" >Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div> -->
+    
+    
+                    <button (click)="eliminarProducto(categorias)" style="border: none; margin: left=20%;">
+                        <i class="fa fa-trash-o text-danger text-btn" aria-hidden="true"></i>
+    
+                    </button>
+    
+                    
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+
+</div>
+
+
